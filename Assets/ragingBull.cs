@@ -58,8 +58,15 @@ public class ragingBull : MonoBehaviour
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (aInfo.IsName("BullIdle"))
         {
-            anim.SetTrigger("Reload");
-            ammo = ammoMax;
+            if (ammo != ammoMax)
+            {
+                anim.SetTrigger("Reload");
+                ammo = ammoMax;
+            }
+            else
+            {
+                anim.SetTrigger("CheckAmmo");
+            }
         }
     }
 

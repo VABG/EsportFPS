@@ -11,7 +11,7 @@ public class FPPlayerController : MonoBehaviour
     [SerializeField] float dragAir = .1f;
 
     //Animation
-    [SerializeField] Animator gunAnimator;
+    [SerializeField] ragingBull gun;
 
 
     Rigidbody rb;
@@ -58,22 +58,17 @@ public class FPPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            AnimatorStateInfo aInfo = gunAnimator.GetCurrentAnimatorStateInfo(0);            
-            if (aInfo.IsName("BullIdle"))
-            {
-                gunAnimator.SetTrigger("Shot");
-                // And also actually shoot.
-            }
+            gun.TryShoot();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            AnimatorStateInfo aInfo = gunAnimator.GetCurrentAnimatorStateInfo(0);
-            if (aInfo.IsName("BullIdle"))
-            {
-                gunAnimator.SetTrigger("LookAtGun");
-                // And also actually shoot.
-            }
+            gun.LookAtGun();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gun.Reload();
         }
     }
 

@@ -9,7 +9,9 @@ public class ragingBull : MonoBehaviour
     [SerializeField] float shotLifeTime = 5.0f;
     [SerializeField] Light shotLight;
     [SerializeField] float shotLightLifeTime = .05f;
+    [SerializeField] List<GameObject> bulletsVisual;
     private float shotLightLifeCounter = 100;
+    public bool SlowMoReload = false;
     Animator anim;
     const int ammoMax = 6;
     int ammo = 6;
@@ -60,8 +62,9 @@ public class ragingBull : MonoBehaviour
         {
             if (ammo != ammoMax)
             {
+                if (SlowMoReload) Time.timeScale = .1f;
+
                 anim.SetTrigger("Reload");
-                ammo = ammoMax;
             }
             else
             {
@@ -76,5 +79,23 @@ public class ragingBull : MonoBehaviour
         Destroy(g, shotLifeTime);
         shotLight.enabled = true;
         shotLightLifeCounter = 0;
+    }
+
+    public void ShowBulletsInCasings()
+    {
+        ammo = ammoMax;
+        if (SlowMoReload) Time.timeScale = 1.0f;
+        foreach (GameObject g in bulletsVisual)
+        {
+                g.SetActive(true);            
+        }
+    }
+
+    public void HideBulletsInCasings()
+    {
+        for (int i = ammoMax-1; i > ammo-1; i--)
+        {
+            bulletsVisual[i].SetActive(false);
+        }
     }
 }

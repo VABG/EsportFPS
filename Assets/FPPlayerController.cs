@@ -10,9 +10,9 @@ public class FPPlayerController : MonoBehaviour
     [SerializeField] float dragGround = 8;
     [SerializeField] float dragAir = .1f;
 
-    //Animation
-    [SerializeField] ragingBull gun;
-
+    [SerializeField] List<GameObject> weapons;
+    List<IShootable> guns;
+    int currentWeapon = 0;
 
     Rigidbody rb;
     Vector3 lastMoveInput = Vector3.zero;
@@ -23,6 +23,16 @@ public class FPPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        guns = new List<IShootable>();
+
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            IShootable g = weapons[i].GetComponent<IShootable>();
+            if (g != null)
+            {
+                guns.Add(g);
+            }
+        }
         // Get Rigidbody
         rb = GetComponent<Rigidbody>();
         cam = GetComponentInChildren<Camera>();
@@ -58,17 +68,17 @@ public class FPPlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            gun.TryShoot();
+            guns[currentWeapon].TryShoot();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            gun.LookAtGun();
+            guns[currentWeapon].LookAtWeapon();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            gun.Reload();
+            guns[currentWeapon].Reload();
         }
     }
 
@@ -96,6 +106,7 @@ public class FPPlayerController : MonoBehaviour
         fwd = new Vector3(fwd.x, 0, fwd.z);
         fwd.Normalize();
     }
+
     public void SetOnGround(bool onGround)
     {
         this.onGround = onGround;

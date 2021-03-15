@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ragingBull : MonoBehaviour
+public interface IShootable
+{
+    abstract void TryShoot();
+    abstract void LookAtWeapon();
+    abstract void Reload();
+}
+
+public class ragingBull : MonoBehaviour, IShootable
 {
     [SerializeField] GameObject shot;
     [SerializeField] Transform shotSpawn;
@@ -33,7 +40,6 @@ public class ragingBull : MonoBehaviour
         if (shotLightLifeCounter > shotLightLifeTime) shotLight.enabled = false;
     }
 
-
     public void TryShoot()
     {
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -51,7 +57,7 @@ public class ragingBull : MonoBehaviour
         }
     }
 
-    public void LookAtGun()
+    public void LookAtWeapon()
     {
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (aInfo.IsName("BullIdle"))
@@ -59,7 +65,6 @@ public class ragingBull : MonoBehaviour
             anim.SetTrigger("LookAtGun");
         }
     }
-
     public void Reload()
     {
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);

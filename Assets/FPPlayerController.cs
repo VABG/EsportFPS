@@ -12,7 +12,7 @@ public class FPPlayerController : MonoBehaviour
 
     [SerializeField] List<GameObject> weapons;
     List<IShootable> guns;
-    int currentWeapon = 0;
+    int currentWeapon = 1;
 
     Rigidbody rb;
     Vector3 lastMoveInput = Vector3.zero;
@@ -32,6 +32,7 @@ public class FPPlayerController : MonoBehaviour
             {
                 guns.Add(g);
             }
+            if (i != currentWeapon) g.HideWeapon();
         }
         // Get Rigidbody
         rb = GetComponent<Rigidbody>();
@@ -45,6 +46,7 @@ public class FPPlayerController : MonoBehaviour
     void Update()
     {
         // Input
+        //rb.angularVelocity = Vector3.zero;
         MovementInput();
         ViewInput();
         JumpInput();

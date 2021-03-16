@@ -7,6 +7,9 @@ public interface IShootable
     abstract void TryShoot();
     abstract void LookAtWeapon();
     abstract void Reload();
+    abstract void HideWeapon();
+    abstract void ShowWeapon();
+    abstract bool CanChangeWeapon();
 }
 
 public class ragingBull : MonoBehaviour, IShootable
@@ -127,5 +130,20 @@ public class ragingBull : MonoBehaviour, IShootable
         {
             bulletsVisual[i].SetActive(false);
         }
+    }
+
+    void IShootable.HideWeapon()
+    {
+        gameObject.SetActive(false);
+    }
+
+    void IShootable.ShowWeapon()
+    {
+        gameObject.SetActive(true);
+    }
+
+    bool IShootable.CanChangeWeapon()
+    {
+        return true;
     }
 }

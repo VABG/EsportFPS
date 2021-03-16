@@ -93,8 +93,11 @@ public class ragingBull : MonoBehaviour, IShootable
 
         Destroy(Instantiate(shotPFX, shotSpawn.position, shotSpawn.rotation).gameObject, .2f);
 
-        GameObject bh = Instantiate(bulletHole, rHit.point+rHit.normal *.001f, Quaternion.FromToRotation(Vector3.up, rHit.normal));
-        bh.transform.parent = rHit.transform;
+        if (rHit.collider)
+        {
+            GameObject bh = Instantiate(bulletHole, rHit.point + rHit.normal * .001f, Quaternion.FromToRotation(Vector3.up, rHit.normal));
+            bh.transform.parent = rHit.transform;
+        }
 
         if (rHit.rigidbody != null)
         {

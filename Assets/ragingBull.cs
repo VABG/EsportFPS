@@ -12,6 +12,7 @@ public interface IShootable
 public class ragingBull : MonoBehaviour, IShootable
 {
     [SerializeField] GameObject shot;
+    [SerializeField] GameObject bulletHole;
     [SerializeField] Transform shotSpawn;
     [SerializeField] float bulletPower = 100;
     [SerializeField] float shotLifeTime = 5.0f;
@@ -91,6 +92,9 @@ public class ragingBull : MonoBehaviour, IShootable
         Physics.Raycast(r, out rHit);
 
         Destroy(Instantiate(shotPFX, shotSpawn.position, shotSpawn.rotation).gameObject, .2f);
+
+        GameObject bh = Instantiate(bulletHole, rHit.point+rHit.normal *.001f, Quaternion.FromToRotation(Vector3.up, rHit.normal));
+        bh.transform.parent = rHit.transform;
 
         if (rHit.rigidbody != null)
         {

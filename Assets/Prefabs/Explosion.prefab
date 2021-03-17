@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1381ff50413d24a96f0d7745047b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 10
-  explosionForce: 5000
+  explosionRadius: 15
+  explosionForce: 2000
 --- !u!199 &6843295133577943639
 ParticleSystemRenderer:
   serializedVersion: 6

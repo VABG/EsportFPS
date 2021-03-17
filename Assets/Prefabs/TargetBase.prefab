@@ -108,8 +108,8 @@ Rigidbody:
   m_GameObject: {fileID: 2286399716163546814}
   serializedVersion: 2
   m_Mass: 2
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.55
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -441,6 +441,14 @@ PrefabInstance:
     - target: {fileID: 3628244955667905358, guid: e93c297dc32d75e479e82ec8e48a7523, type: 3}
       propertyPath: m_Name
       value: Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 3628244955667905359, guid: e93c297dc32d75e479e82ec8e48a7523, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3628244955667905359, guid: e93c297dc32d75e479e82ec8e48a7523, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 3628244955667905359, guid: e93c297dc32d75e479e82ec8e48a7523, type: 3}
       propertyPath: m_Interpolate

@@ -51,6 +51,7 @@ public class FPPlayerController : MonoBehaviour
         ViewInput();
         JumpInput();
         ShootInput();
+        ChangeWeaponInput();
         if (onGround)
         {
             rb.drag = dragGround;
@@ -81,6 +82,25 @@ public class FPPlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             guns[currentWeapon].Reload();
+        }
+    }
+
+    void ChangeWeaponInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (!guns[currentWeapon].CanChangeWeapon() || currentWeapon == 0) return;
+            guns[currentWeapon].HideWeapon();
+            currentWeapon = 0;
+            guns[currentWeapon].ShowWeapon();         
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (!guns[currentWeapon].CanChangeWeapon() || currentWeapon == 1) return;
+            guns[currentWeapon].HideWeapon();
+            currentWeapon = 1;
+            guns[currentWeapon].ShowWeapon();
         }
     }
 

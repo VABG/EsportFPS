@@ -144,6 +144,8 @@ public class ragingBull : MonoBehaviour, IShootable
 
     bool IShootable.CanChangeWeapon()
     {
-        return true;
+        AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
+        if (aInfo.IsName("BullIdle")) return true;
+        return false;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gernade : MonoBehaviour
+public class Grenade : MonoBehaviour
 {
     [SerializeField] GameObject explosion;
     [SerializeField] float delay = 3;

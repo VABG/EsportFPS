@@ -424,10 +424,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5779778311718521737, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77af0d760255cba48ad42eace350a5ba, type: 2}
     - target: {fileID: 7190920994615560059, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
       propertyPath: m_Name
       value: TargetBase (4)
@@ -551,10 +547,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5779778311718521737, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77af0d760255cba48ad42eace350a5ba, type: 2}
     - target: {fileID: 7190920994615560059, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
       propertyPath: m_Name
       value: TargetBase (1)
@@ -1746,10 +1738,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5779778311718521737, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77af0d760255cba48ad42eace350a5ba, type: 2}
     - target: {fileID: 7190920994615560059, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
       propertyPath: m_Name
       value: TargetBase (3)
@@ -1973,7 +1961,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1450541429
 CapsuleCollider:
@@ -2290,10 +2278,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5779778311718521737, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77af0d760255cba48ad42eace350a5ba, type: 2}
     - target: {fileID: 7190920994615560059, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
       propertyPath: m_Name
       value: TargetBase (2)
@@ -2871,10 +2855,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5779778311718521737, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77af0d760255cba48ad42eace350a5ba, type: 2}
     - target: {fileID: 7190920994615560059, guid: ec4625725a567284ca70a1eae18f825e, type: 3}
       propertyPath: m_Name
       value: TargetBase

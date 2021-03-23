@@ -102,9 +102,14 @@ public class ragingBull : MonoBehaviour, IShootable
             bh.transform.parent = rHit.transform;
         }
 
+        IDamageable d = rHit.collider.gameObject.GetComponent<IDamageable>();
+        Vector3 force = r.direction * bulletPower;
+
+        if (d != null) d.Damage(50, rHit.point, force);
+        
         if (rHit.rigidbody != null)
         {
-            rHit.rigidbody.AddForceAtPosition(r.direction * bulletPower, rHit.point);
+            rHit.rigidbody.AddForceAtPosition(force, rHit.point);
         }
 
         //GameObject g = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);

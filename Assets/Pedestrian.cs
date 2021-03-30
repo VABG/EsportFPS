@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Pedestrian : MonoBehaviour, IDamageable
 {
-    private GameObject target;
     NavMeshAgent navMeshAgent;
     float timer = 0;
-    float health = 300;
+    float health = 100;
     float startHealth = 0;
-    HealthBar hpBar;
 
     public void Damage(float dmg, Vector3 position, Vector3 force)
     {
         health -= dmg;
-        hpBar.ChangeHealth(health / startHealth);
         if (health <= 0)
         {
             health = 0;
@@ -28,23 +25,29 @@ public class Enemy : MonoBehaviour, IDamageable
     void Start()
     {
         startHealth = health;
-        hpBar = GetComponent<HealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        target = FindObjectOfType<FPPlayerController>().gameObject;
+        MoveToSomeTarget();
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer > .5f)
+        if (timer > 10f)
         {
             timer = 0;
             //Premade!
-            navMeshAgent.SetDestination(target.transform.position);
+            MoveToSomeTarget();
 
             //navMeshAgent.CalculatePath();
         }
-        
+
+    }
+
+    void MoveToSomeTarget()
+    {
+        Target[] t = FindObjectsOfType<Target>();
+        navMeshAgent.SetDestination(t[Random.Range(0, t.Length)].transform.position);
     }
 }
+

@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FPPlayerController : MonoBehaviour
+public class FPPlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] float accelerationGround = 5;
     [SerializeField] float accelerationAir = 5;
     [SerializeField] float jumpVelocity = 5;
     [SerializeField] float dragGround = 8;
     [SerializeField] float dragAir = .1f;
+
+    [SerializeField] GameObject hpBar;
 
     [SerializeField] List<GameObject> weapons;
     List<IShootable> guns;
@@ -20,9 +22,19 @@ public class FPPlayerController : MonoBehaviour
     Camera cam;
     bool onGround;
 
+    float health = 600;
+    float maxHealth;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (health <= 0)
+        {
+            health = 1;
+            Debug.LogError("Health set to 0 or less!");
+        }
+
+        maxHealth = health;
         guns = new List<IShootable>();
 
         for (int i = 0; i < weapons.Count; i++)
@@ -140,5 +152,16 @@ public class FPPlayerController : MonoBehaviour
         rb.AddForce(fwd * lastMoveInput.z * currentAcceleration, ForceMode.Acceleration);
         rb.AddForce(cam.transform.right * lastMoveInput.x * currentAcceleration, ForceMode.Acceleration);
         SetOnGround(false);
+    }
+
+    public void Damage(float dmg, Vector3 position, Vector3 force)
+    {
+        health -= dmg;
+        if (health <= 0)
+        {
+            health = 0;
+            Debug.Log("You died!");
+        }
+        hpBar.transform.localScale = new Vector3(health / maxHealth, hpBar.transform.localScale.y, hpBar.transform.localScale.z);
     }
 }

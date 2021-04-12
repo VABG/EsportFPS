@@ -89,6 +89,8 @@ public class ragingBull : MonoBehaviour, IShootable
 
     public void ShootBullet()
     {
+        GetComponent<AudioSource>().Play();
+
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit rHit;
 
@@ -101,6 +103,7 @@ public class ragingBull : MonoBehaviour, IShootable
             GameObject bh = Instantiate(bulletHole, rHit.point + rHit.normal * .001f, Quaternion.FromToRotation(Vector3.up, rHit.normal));
             bh.transform.parent = rHit.transform;
         }
+        else return;
 
         IDamageable d = rHit.collider.gameObject.GetComponent<IDamageable>();
         Vector3 force = r.direction * bulletPower;

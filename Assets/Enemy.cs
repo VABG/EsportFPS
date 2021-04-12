@@ -12,6 +12,12 @@ public class Enemy : MonoBehaviour, IDamageable
     float startHealth = 0;
     HealthBar hpBar;
 
+    [SerializeField] AudioClip growl;
+    [SerializeField] GameObject deadModel;
+
+    AudioSource audioSource;
+    float grrDelayTimer = 1.5f;
+
     public void Damage(float dmg, Vector3 position, Vector3 force)
     {
         health -= dmg;
@@ -21,12 +27,14 @@ public class Enemy : MonoBehaviour, IDamageable
             health = 0;
             Destroy(this.gameObject);
             //Effects and stuff here
+            Instantiate(deadModel, transform.position, transform.rotation);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         startHealth = health;
         hpBar = GetComponent<HealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -36,12 +44,20 @@ public class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        grrDelayTimer -= Time.deltaTime;
+        if (grrDelayTimer <= 0)
+        {
+            grrDelayTimer = Random.Range(1, 3.0f);
+            audioSource.PlayOneShot(growl);
+        }
+
         timer += Time.deltaTime;
-        if (timer > .5f)
+        if (timer > 2.5f)
         {
             timer = 0;
             //Premade!
-            navMeshAgent.SetDestination(target.transform.position);
+            Vector2 rndPos = Random.insideUnitCircle * 5;
+            navMeshAgent.SetDestination(new Vector3(rndPos.x, rndPos.y, transform.position.z));
 
             //navMeshAgent.CalculatePath();
         }

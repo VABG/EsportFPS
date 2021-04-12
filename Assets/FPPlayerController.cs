@@ -15,6 +15,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     [SerializeField] List<GameObject> weapons;
     List<IShootable> guns;
     int currentWeapon = 1;
+    AudioSource audioSource;
 
     Rigidbody rb;
     Vector3 lastMoveInput = Vector3.zero;
@@ -28,6 +29,8 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (health <= 0)
         {
             health = 1;
@@ -76,7 +79,12 @@ public class FPPlayerController : MonoBehaviour, IDamageable
 
     void JumpInput()
     {
-        if (onGround && Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector3.up*jumpVelocity, ForceMode.VelocityChange);
+        if (onGround && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * jumpVelocity, ForceMode.VelocityChange);
+            audioSource.pitch = Random.value * .1f + 1f;
+            audioSource.Play();
+        }
     }
 
     void ShootInput()

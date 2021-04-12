@@ -26,7 +26,7 @@ public class Explosion : MonoBehaviour
 
             if (dmg != null)
             {
-                dmg.Damage(damage*d, pos, direction);
+                dmg.Damage(damage*d*d*d*d, pos, direction);
             }
             Rigidbody rb = c[i].GetComponent<Rigidbody>();
             if (rb != null)

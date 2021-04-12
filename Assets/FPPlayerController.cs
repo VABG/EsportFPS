@@ -53,7 +53,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         cam = GetComponentInChildren<Camera>();
         // Hide mouse
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 

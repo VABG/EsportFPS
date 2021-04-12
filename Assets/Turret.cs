@@ -22,7 +22,6 @@ public class Turret : MonoBehaviour
     [SerializeField] float shotDelay;
     float shootTimer;
 
-
     GameObject target;
     AudioSource audioSource;
 
@@ -35,7 +34,6 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (shootTimer > 0) shootTimer -= Time.deltaTime;
 
         //Rotate towards if there is a target
@@ -48,7 +46,6 @@ public class Turret : MonoBehaviour
                 viewForgetTimer -= Time.deltaTime;
                 if (viewForgetTimer <= 0) ForgetTarget();
             }
-
         }
         else //Idle behaviour (look for target)
         {
@@ -66,8 +63,7 @@ public class Turret : MonoBehaviour
                 }
             }
         }
-    }    
-
+    }
 
     void ForgetTarget()
     {
@@ -95,9 +91,7 @@ public class Turret : MonoBehaviour
         float rotateY = rotY * Time.deltaTime * rotationSpeedY;
         if (Mathf.Abs(rotateY) > Mathf.Abs(rotY)) rotateY = rotY;
         rotationPointY.Rotate(new Vector3(0, rotateY, 0));
-
     }
-
     void TryShoot()
     {
         if (shootTimer > 0) return;

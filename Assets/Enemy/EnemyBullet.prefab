@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitSpawn: {fileID: 5691188317873935783, guid: 02b6a0c8eb5c3a249bc847112b37a176, type: 3}
   shotSpeed: 50
-  damage: 50
+  damage: 100

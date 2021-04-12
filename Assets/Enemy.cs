@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private GameObject target;
     NavMeshAgent navMeshAgent;
     float timer = 0;
-    float health = 300;
+    float health = 100;
     float startHealth = 0;
     HealthBar hpBar;
 
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        grrDelayTimer = Random.Range(3, 10.0f);
         audioSource = GetComponent<AudioSource>();
         startHealth = health;
         hpBar = GetComponent<HealthBar>();
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable
         grrDelayTimer -= Time.deltaTime;
         if (grrDelayTimer <= 0)
         {
-            grrDelayTimer = Random.Range(1, 3.0f);
+            grrDelayTimer = Random.Range(2, 6.0f);
             audioSource.PlayOneShot(growl);
         }
 

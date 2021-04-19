@@ -9,6 +9,9 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     [SerializeField] float jumpVelocity = 5;
     [SerializeField] float dragGround = 8;
     [SerializeField] float dragAir = .1f;
+    [SerializeField] AudioClip soundGotHealth;
+    [SerializeField] AudioClip soundGotAmmo;
+    [SerializeField] AudioClip soundJumped;
 
     [SerializeField] GameObject hpBar;
 
@@ -83,7 +86,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         {
             rb.AddForce(Vector3.up * jumpVelocity, ForceMode.VelocityChange);
             audioSource.pitch = Random.value * .1f + .8f;
-            audioSource.Play();
+            audioSource.PlayOneShot(soundJumped);
         }
     }
 
@@ -170,6 +173,35 @@ public class FPPlayerController : MonoBehaviour, IDamageable
             health = 0;
             Debug.Log("You died!");
         }
+        UpdateHealthBar();
+    }
+
+    private void UpdateHealthBar()
+    {
         hpBar.transform.localScale = new Vector3(health / maxHealth, hpBar.transform.localScale.y, hpBar.transform.localScale.z);
+    }
+
+    public bool TryAddAmmo(int bullets, int grenades)
+    {
+        bool gotAmmo = false;
+        if (guns[0].TryAddAmmo(bullets)) gotAmmo = true;
+        if (guns[1].TryAddAmmo(grenades)) gotAmmo = true;
+        if(gotAmmo) audioSource.PlayOneShot(soundGotAmmo);
+
+
+        return gotAmmo;
+    }
+
+    public bool TryAddHealth(float healthPlus)
+    {
+        if (health < maxHealth)
+        {
+            health += healthPlus;
+            if (health > maxHealth) health = maxHealth;
+            UpdateHealthBar();
+            audioSource.PlayOneShot(soundGotHealth);
+            return true;
+        }
+        else return false;
     }
 }

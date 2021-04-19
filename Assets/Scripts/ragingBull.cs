@@ -10,6 +10,7 @@ public interface IShootable
     abstract void HideWeapon();
     abstract void ShowWeapon();
     abstract bool CanChangeWeapon();
+    abstract bool TryAddAmmo(int ammo);
 }
 
 public class ragingBull : MonoBehaviour, IShootable
@@ -167,5 +168,15 @@ public class ragingBull : MonoBehaviour, IShootable
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (aInfo.IsName("BullIdle")) return true;
         return false;
+    }
+
+    public bool TryAddAmmo(int add)
+    {
+        if (add == 0 || totalAmmo == totalAmmoMax) return false;
+        totalAmmo += add;
+        if (totalAmmo > totalAmmoMax) totalAmmo = totalAmmoMax;
+
+        weaponUI.SetBullets(ammo, totalAmmo);
+        return true;
     }
 }

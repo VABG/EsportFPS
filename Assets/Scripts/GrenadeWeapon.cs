@@ -63,4 +63,15 @@ public class GrenadeWeapon : MonoBehaviour, IShootable
     {
         return true;
     }
+
+    public bool TryAddAmmo(int add)
+    {
+        if (add == 0 || ammo == maxAmmo) return false;
+
+        ammo += add;
+        if (ammo > maxAmmo) ammo = maxAmmo;
+
+        weaponUI.SetGrenadesUI(ammo);
+        return true;
+    }
 }

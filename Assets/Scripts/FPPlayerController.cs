@@ -215,12 +215,17 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     {
         alive = false;
         rb.freezeRotation = false;
-        rb.drag = 2;
-        rb.angularDrag = .5f;
+        rb.drag = 10;
+        rb.angularDrag = 10f;
         rb.angularVelocity -= cam.transform.forward * 50;
         for (int i = 0; i < guns.Count; i++)
         {
             guns[i].HideWeapon();
         }
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        GameManager gmgr = FindObjectOfType<GameManager>();
+        if (gmgr != null) gmgr.PlayerDied();
+        else { Debug.LogError("No game manager found!"); }
     }
 }

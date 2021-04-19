@@ -82,7 +82,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         if (onGround && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpVelocity, ForceMode.VelocityChange);
-            audioSource.pitch = Random.value * .1f + 1f;
+            audioSource.pitch = Random.value * .1f + .8f;
             audioSource.Play();
         }
     }

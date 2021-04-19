@@ -23,6 +23,7 @@ public class Turret : MonoBehaviour
     float shootTimer;
 
     GameObject target;
+
     AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -77,7 +78,7 @@ public class Turret : MonoBehaviour
         Vector3 selfPos = barrelExit.position;
         Vector3 direction = tPos - selfPos;        
         direction.Normalize();
-
+        
         //Rotation X
         float rX = Mathf.Asin(direction.y);
         float rotX = (rX - barrelExit.forward.y) * Mathf.Rad2Deg;
@@ -122,7 +123,7 @@ public class Turret : MonoBehaviour
 
     void Shoot()
     {
-        audioSource.pitch = Random.value*.15f + 1;
+        audioSource.pitch = (Random.value*2 -1) *.15f + 1;
         audioSource.Play();
         Destroy(Instantiate(bullet, barrelExit.position, barrelExit.rotation), 1);
     }    

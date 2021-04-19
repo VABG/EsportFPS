@@ -165,6 +165,10 @@ PrefabInstance:
       propertyPath: hpBar
       value: 
       objectReference: {fileID: 2927082154681865411}
+    - target: {fileID: 1437297745514846755, guid: 3d9eb34a53aa4bc448d7b2abb44e4ab3, type: 3}
+      propertyPath: health
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1437297745514846760, guid: 3d9eb34a53aa4bc448d7b2abb44e4ab3, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -417,6 +417,7 @@ MonoBehaviour:
   rotationSpeedY: 4
   rotationSpeedIdleY: 50
   shotDelay: 0.1
+  deadModel: {fileID: 6921035245786266417, guid: 03883542f05b87742907661923f1dc46, type: 3}
 --- !u!82 &3514181590756022799
 AudioSource:
   m_ObjectHideFlags: 0

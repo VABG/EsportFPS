@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             timer = 0;
             //Premade!
-            Vector2 rndPos = Random.insideUnitCircle * 5;
+            Vector2 rndPos = Random.insideUnitCircle * 10;
             navMeshAgent.SetDestination(new Vector3(transform.position.x + rndPos.x,  transform.position.x + rndPos.y, transform.position.z));
 
             //navMeshAgent.CalculatePath();

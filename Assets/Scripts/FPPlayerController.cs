@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FPPlayerController : MonoBehaviour, IDamageable
 {
+    [SerializeField] float health = 600;
+    float maxHealth;
+    bool alive = true;
+
     [SerializeField] float accelerationGround = 5;
     [SerializeField] float accelerationAir = 5;
     [SerializeField] float jumpVelocity = 5;
@@ -25,10 +29,6 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     Vector3 fwd;
     Camera cam;
     bool onGround;
-
-    float health = 600;
-    float maxHealth;
-    bool alive = true;
 
     // Start is called before the first frame update
     void Start()

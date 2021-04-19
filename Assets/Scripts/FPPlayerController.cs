@@ -28,6 +28,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
 
     float health = 600;
     float maxHealth;
+    bool alive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -63,21 +64,25 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        // Input
-        //rb.angularVelocity = Vector3.zero;
-        MovementInput();
-        ViewInput();
-        JumpInput();
-        ShootInput();
-        ChangeWeaponInput();
-        if (onGround)
+        if (alive)
         {
-            rb.drag = dragGround;
+            // Input
+            //rb.angularVelocity = Vector3.zero;
+            MovementInput();
+            ViewInput();
+            JumpInput();
+            ShootInput();
+            ChangeWeaponInput();
+            if (onGround)
+            {
+                rb.drag = dragGround;
+            }
+            else
+            {
+                rb.drag = dragAir;
+            }
         }
-        else
-        {
-            rb.drag = dragAir;
-        }
+
     }
 
     void JumpInput()
@@ -171,7 +176,8 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             health = 0;
-            Debug.Log("You died!");
+            Die();
+            //Debug.Log("You died!");
         }
         UpdateHealthBar();
     }
@@ -203,5 +209,18 @@ public class FPPlayerController : MonoBehaviour, IDamageable
             return true;
         }
         else return false;
+    }
+
+    private void Die()
+    {
+        alive = false;
+        rb.freezeRotation = false;
+        rb.drag = 2;
+        rb.angularDrag = .5f;
+        rb.angularVelocity -= cam.transform.forward * 50;
+        for (int i = 0; i < guns.Count; i++)
+        {
+            guns[i].HideWeapon();
+        }
     }
 }

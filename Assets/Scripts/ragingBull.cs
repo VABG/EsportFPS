@@ -28,6 +28,14 @@ public class ragingBull : MonoBehaviour, IShootable
     [SerializeField] ParticleSystem shotPFX;
     [SerializeField] WeaponUI weaponUI;
 
+    [SerializeField] AudioClip audioShoot;
+    [SerializeField] AudioClip audioDryFire;
+    [SerializeField] AudioClip audioCasingsOut;
+    [SerializeField] AudioClip audioBulletsIn;
+    [SerializeField] AudioClip audioOpen;
+    [SerializeField] AudioClip audioClose;
+
+    AudioSource audioSource;
 
     private float shotLightLifeCounter = 100;
     public bool SlowMoReload = false;
@@ -42,7 +50,7 @@ public class ragingBull : MonoBehaviour, IShootable
     {
         anim = GetComponent<Animator>();
         cam = FindObjectOfType<Camera>();
-
+        audioSource = GetComponent<AudioSource>();
         weaponUI.SetBullets(ammo, totalAmmo);
     }
 
@@ -99,7 +107,8 @@ public class ragingBull : MonoBehaviour, IShootable
 
     public void ShootBullet()
     {
-        GetComponent<AudioSource>().Play();
+        RndPitch();
+        audioSource.PlayOneShot(audioShoot);
 
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit rHit;
@@ -178,5 +187,39 @@ public class ragingBull : MonoBehaviour, IShootable
 
         weaponUI.SetBullets(ammo, totalAmmo);
         return true;
+    }
+
+    public void PlayCasingsOut()
+    {
+        audioSource.PlayOneShot(audioCasingsOut);
+
+    }
+
+    public void PlayCasingsIn()
+    {
+        audioSource.PlayOneShot(audioBulletsIn);
+
+    }
+
+    public void PlayOpen()
+    {
+        audioSource.PlayOneShot(audioOpen);
+    }
+
+    public void PlayClose()
+    {
+        RndPitch();
+        audioSource.PlayOneShot(audioClose);
+    }
+
+    public void DryFire()
+    {
+        RndPitch();
+        audioSource.PlayOneShot(audioDryFire);
+    }
+
+    private void RndPitch()
+    {
+        audioSource.pitch = Random.value * .1f + .95f;
     }
 }

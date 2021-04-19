@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (grrDelayTimer <= 0)
         {
             grrDelayTimer = Random.Range(2, 6.0f);
-            audioSource.PlayOneShot(growl);
+            audioSource.PlayOneShot(growl, .2f);
         }
 
         timer += Time.deltaTime;

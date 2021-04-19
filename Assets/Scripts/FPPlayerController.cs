@@ -18,10 +18,11 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     [SerializeField] AudioClip soundJumped;
 
     [SerializeField] GameObject hpBar;
+    [SerializeField] PlayerDamageUI damageUI;
 
     [SerializeField] List<GameObject> weapons;
     List<IShootable> guns;
-    int currentWeapon = 1;
+    int currentWeapon = 0;
     AudioSource audioSource;
 
     Rigidbody rb;
@@ -173,11 +174,11 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     public void Damage(float dmg, Vector3 position, Vector3 force)
     {
         health -= dmg;
+        damageUI.Damage(dmg/health * 2);
         if (health <= 0)
         {
             health = 0;
             Die();
-            //Debug.Log("You died!");
         }
         UpdateHealthBar();
     }
@@ -192,8 +193,8 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         bool gotAmmo = false;
         if (guns[0].TryAddAmmo(bullets)) gotAmmo = true;
         if (guns[1].TryAddAmmo(grenades)) gotAmmo = true;
-        if(gotAmmo) audioSource.PlayOneShot(soundGotAmmo);
-
+        audioSource.pitch = Random.value * .1f + .95f; 
+        if (gotAmmo) audioSource.PlayOneShot(soundGotAmmo);
 
         return gotAmmo;
     }
@@ -205,6 +206,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
             health += healthPlus;
             if (health > maxHealth) health = maxHealth;
             UpdateHealthBar();
+            audioSource.pitch = Random.value * .1f + .95f;
             audioSource.PlayOneShot(soundGotHealth);
             return true;
         }
@@ -213,6 +215,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        damageUI.Die();
         alive = false;
         rb.freezeRotation = false;
         rb.drag = 10;
@@ -222,7 +225,7 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         {
             guns[i].HideWeapon();
         }
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager gmgr = FindObjectOfType<GameManager>();
         if (gmgr != null) gmgr.PlayerDied();

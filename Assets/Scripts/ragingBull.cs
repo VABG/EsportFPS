@@ -17,12 +17,16 @@ public class ragingBull : MonoBehaviour, IShootable
     [SerializeField] GameObject shot;
     [SerializeField] GameObject bulletHole;
     [SerializeField] Transform shotSpawn;
+    [SerializeField] int totalAmmo = 18;
+    [SerializeField] int totalAmmoMax = 60;
     [SerializeField] float bulletPower = 100;
     [SerializeField] float shotLifeTime = 5.0f;
     [SerializeField] Light shotLight;
     [SerializeField] float shotLightLifeTime = .05f;
     [SerializeField] List<GameObject> bulletsVisual;
     [SerializeField] ParticleSystem shotPFX;
+    [SerializeField] WeaponUI weaponUI;
+
 
     private float shotLightLifeCounter = 100;
     public bool SlowMoReload = false;
@@ -31,11 +35,14 @@ public class ragingBull : MonoBehaviour, IShootable
     int ammo = 6;
     private Camera cam;
 
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         cam = FindObjectOfType<Camera>();
+
+        weaponUI.SetBullets(ammo, totalAmmo);
     }
 
     private void Update()
@@ -49,10 +56,12 @@ public class ragingBull : MonoBehaviour, IShootable
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (aInfo.IsName("BullIdle"))
         {
-            if (ammo > 0)
+            if (ammo > 0 && totalAmmo > 0)
             {
                 anim.SetTrigger("Shot");
                 ammo--;
+                totalAmmo--;
+                weaponUI.SetBullets(ammo, totalAmmo);
             }
             else
             {
@@ -74,7 +83,7 @@ public class ragingBull : MonoBehaviour, IShootable
         AnimatorStateInfo aInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (aInfo.IsName("BullIdle"))
         {
-            if (ammo != ammoMax)
+            if (ammo != ammoMax && totalAmmo > ammo)
             {
                 if (SlowMoReload) Time.timeScale = .1f;
 
@@ -124,7 +133,10 @@ public class ragingBull : MonoBehaviour, IShootable
 
     public void ShowBulletsInCasings()
     {
-        ammo = ammoMax;
+        if (totalAmmo < 6) ammo = totalAmmo;
+        else ammo = ammoMax;
+        weaponUI.SetBullets(ammo, totalAmmo);
+
         if (SlowMoReload) Time.timeScale = 1.0f;
         foreach (GameObject g in bulletsVisual)
         {

@@ -21,6 +21,7 @@ public class Turret : MonoBehaviour
 
     [SerializeField] float shotDelay;
     float shootTimer;
+    bool hasTarget = false;
 
     GameObject target;
 
@@ -40,6 +41,7 @@ public class Turret : MonoBehaviour
         //Rotate towards if there is a target
         if (target != null)
         {
+            hasTarget = true;
             RotateTowardTarget();
             TryShoot();
             // Forget target if not visible for a while
@@ -50,6 +52,11 @@ public class Turret : MonoBehaviour
         }
         else //Idle behaviour (look for target)
         {
+            if (hasTarget)
+            {
+                ForgetTarget();
+                hasTarget = false;
+            }
             rotationPointY.Rotate(new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
             rotationPointY.localRotation = 
                 Quaternion.Euler(rotationPointY.localRotation.eulerAngles + new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
@@ -69,7 +76,8 @@ public class Turret : MonoBehaviour
     void ForgetTarget()
     {
         target = null;
-        rotationPointX.localRotation = Quaternion.identity;
+        Vector3 rot = rotationPointX.localRotation.eulerAngles;
+        rotationPointX.localRotation = Quaternion.Euler(0, rot.y, rot.z);
     }
 
     void RotateTowardTarget()

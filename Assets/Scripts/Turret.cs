@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : MonoBehaviour, IDamageable
 {
     [SerializeField] Transform rotationPointY;
     [SerializeField] Transform rotationPointX;
@@ -25,6 +25,8 @@ public class Turret : MonoBehaviour
 
     GameObject target;
 
+    [SerializeField] GameObject deadModel;
+    
     AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -134,5 +136,12 @@ public class Turret : MonoBehaviour
         audioSource.pitch = (Random.value*2 -1) *.15f + 1;
         audioSource.Play();
         Destroy(Instantiate(bullet, barrelExit.position, barrelExit.rotation), 1);
-    }    
+    }
+
+    public void Damage(float dmg, Vector3 position, Vector3 force)
+    {
+        // Do damage stuff!
+        Instantiate(deadModel, transform.position, transform.rotation);
+        Destroy(this.gameObject);
+    }
 }

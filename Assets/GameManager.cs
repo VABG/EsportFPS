@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject retryButton;
+    [SerializeField] GameObject inGameUI;
+
 
     private void Start()
     {
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         retryButton.SetActive(true);
+        inGameUI.SetActive(false);
     }
 
     public void Restart()

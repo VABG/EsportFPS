@@ -88,8 +88,8 @@ public class FPPlayerController : MonoBehaviour, IDamageable
     void JumpInput()
     {
         if (onGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(Vector3.up * jumpVelocity, ForceMode.VelocityChange);
+        {            
+            rb.AddForce(Vector3.up * (jumpVelocity - rb.velocity.y), ForceMode.VelocityChange);
             audioSource.pitch = Random.value * .1f + .8f;
             audioSource.PlayOneShot(soundJumped);
         }

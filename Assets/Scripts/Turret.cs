@@ -141,7 +141,7 @@ public class Turret : MonoBehaviour, IDamageable
     public void Damage(float dmg, Vector3 position, Vector3 force)
     {
         // Do damage stuff!
-        Instantiate(deadModel, transform.position, transform.rotation);
+        Instantiate(deadModel, transform.position, rotationPointY.rotation);
         Destroy(this.gameObject);
     }
 }

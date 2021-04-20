@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour, IDamageable
     GameObject target;
 
     [SerializeField] GameObject deadModel;
-    
+    bool active = true;
     AudioSource audioSource;
 
     // Start is called before the first frame update
@@ -38,41 +38,46 @@ public class Turret : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (shootTimer > 0) shootTimer -= Time.deltaTime;
+        if (active)
+        {
+            if (shootTimer > 0) shootTimer -= Time.deltaTime;
 
-        //Rotate towards if there is a target
-        if (target != null)
-        {
-            hasTarget = true;
-            RotateTowardTarget();
-            TryShoot();
-            // Forget target if not visible for a while
-            if (!CanSee(target)) {
-                viewForgetTimer -= Time.deltaTime;
-                if (viewForgetTimer <= 0) ForgetTarget();
-            }
-        }
-        else //Idle behaviour (look for target)
-        {
-            if (hasTarget)
+            //Rotate towards if there is a target
+            if (target != null)
             {
-                ForgetTarget();
-                hasTarget = false;
-            }
-            rotationPointY.Rotate(new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
-            rotationPointY.localRotation = 
-                Quaternion.Euler(rotationPointY.localRotation.eulerAngles + new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
-            Collider[] checkEnemies = Physics.OverlapSphere(transform.position, viewDistance, viewFilter);
-            for (int i = 0; i < checkEnemies.Length; i++)
-            {
-                if (CanSee(checkEnemies[i].gameObject))
+                hasTarget = true;
+                RotateTowardTarget();
+                TryShoot();
+                // Forget target if not visible for a while
+                if (!CanSee(target))
                 {
-                    target = checkEnemies[i].gameObject;
-                    viewForgetTimer = viewForgetTime;
-                    break;
+                    viewForgetTimer -= Time.deltaTime;
+                    if (viewForgetTimer <= 0) ForgetTarget();
+                }
+            }
+            else //Idle behaviour (look for target)
+            {
+                if (hasTarget)
+                {
+                    ForgetTarget();
+                    hasTarget = false;
+                }
+                rotationPointY.Rotate(new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
+                rotationPointY.localRotation =
+                    Quaternion.Euler(rotationPointY.localRotation.eulerAngles + new Vector3(0, rotationSpeedIdleY * Time.deltaTime, 0));
+                Collider[] checkEnemies = Physics.OverlapSphere(transform.position, viewDistance, viewFilter);
+                for (int i = 0; i < checkEnemies.Length; i++)
+                {
+                    if (CanSee(checkEnemies[i].gameObject))
+                    {
+                        target = checkEnemies[i].gameObject;
+                        viewForgetTimer = viewForgetTime;
+                        break;
+                    }
                 }
             }
         }
+       
     }
 
     void ForgetTarget()
@@ -143,5 +148,10 @@ public class Turret : MonoBehaviour, IDamageable
         // Do damage stuff!
         Instantiate(deadModel, transform.position, rotationPointY.rotation);
         Destroy(this.gameObject);
+    }
+
+    public void SetActive(bool active)
+    {
+        this.active = active;
     }
 }

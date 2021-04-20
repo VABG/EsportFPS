@@ -231,4 +231,16 @@ public class FPPlayerController : MonoBehaviour, IDamageable
         if (gmgr != null) gmgr.PlayerDied();
         else { Debug.LogError("No game manager found!"); }
     }
+
+    public void Disable()
+    {
+        for (int i = 0; i < guns.Count; i++)
+        {
+            guns[i].HideWeapon();
+        }
+        alive = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        rb.drag = 1000;
+    }
 }

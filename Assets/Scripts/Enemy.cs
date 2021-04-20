@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private GameObject target;
     NavMeshAgent navMeshAgent;
     float timer = 0;
-    float health = 100;
+    [SerializeField] float health = 100;
     float startHealth = 0;
     HealthBar hpBar;
 
@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     AudioSource audioSource;
     float grrDelayTimer = 1.5f;
+
+    bool active = true;
 
     public void Damage(float dmg, Vector3 position, Vector3 force)
     {
@@ -45,23 +47,31 @@ public class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        grrDelayTimer -= Time.deltaTime;
-        if (grrDelayTimer <= 0)
+        if (active)
         {
-            grrDelayTimer = Random.Range(2, 6.0f);
-            audioSource.PlayOneShot(growl, .2f);
-        }
+            grrDelayTimer -= Time.deltaTime;
+            if (grrDelayTimer <= 0)
+            {
+                grrDelayTimer = Random.Range(2, 6.0f);
+                audioSource.PlayOneShot(growl, .2f);
+            }
 
-        timer += Time.deltaTime;
-        if (timer > 2.5f)
-        {
-            timer = 0;
-            //Premade!
-            Vector2 rndPos = Random.insideUnitCircle * 10;
-            navMeshAgent.SetDestination(new Vector3(transform.position.x + rndPos.x,  transform.position.x + rndPos.y, transform.position.z));
+            timer += Time.deltaTime;
+            if (timer > 2.5f)
+            {
+                timer = 0;
+                //Premade!
+                Vector2 rndPos = Random.insideUnitCircle * 10;
+                navMeshAgent.SetDestination(new Vector3(transform.position.x + rndPos.x, transform.position.x + rndPos.y, transform.position.z));
 
-            //navMeshAgent.CalculatePath();
+                //navMeshAgent.CalculatePath();
+            }
         }
-        
     }
+    public void SetActive(bool active)
+    {
+        this.active = active;
+    }
+
+
 }
